@@ -63,7 +63,7 @@ def vocab2mat(vocabulary=None, random=None, vectorfile=None, corpus='CC', object
     numpy matrix of size (len(vocabulary), dimension)
   '''
 
-    assert random is None or not vocabulary is None, "needs vocabulary size information for random vectors"
+    assert random is None or vocabulary is not None, "needs vocabulary size information for random vectors"
 
     if random is None:
         if vectorfile is None:
@@ -110,7 +110,7 @@ def vocab2vecs(vocabulary=None, random=None, vectorfile=None, corpus='CC', objec
   '''
 
     assert random is None or not (
-                vocabulary is None or type(vocabulary) == int), "needs word information for random vectors"
+            vocabulary is None or type(vocabulary) == int), "needs word information for random vectors"
 
     if random is None:
         if vectorfile is None:
