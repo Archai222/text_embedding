@@ -103,7 +103,7 @@ def csv2clf(filename, unsup=False, splitlabel=False, delimiter='\t'):
     [list of documents, list of labels]
   '''
 
-  with open(filename, 'r') as f:
+  with open(filename, 'r', encoding="utf-8") as f:
     if PYTHONVERSION == '3':
       if splitlabel:
         return list(zip(*((document, label.split(':')[0]) for label, document in csv.reader(f, delimiter=delimiter))))
