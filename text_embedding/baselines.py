@@ -7,7 +7,7 @@ from text_embedding.vectors import *
 
 
 # NOTE: filepath for Amazon GloVe embeddings goes here
-VECTORFILES[('Amazon', 'GloVe', 1600)] = '/n/fs/nlpdatasets/AmazonProductData/amazon_glove1600.txt'
+VECTORFILES[('Amazon', 'GloVe', 300)] = '/glove.840B.300d.txt'
 
 
 def BonG(n, min_count=1):

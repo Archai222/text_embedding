@@ -10,7 +10,7 @@ from text_embedding.vectors import *
 
 
 # NOTE: filepath for Amazon GloVe embeddings goes here
-VECTORFILES[('Amazon', 'GloVe', 1600)] = '/n/fs/nlpdatasets/AmazonProductData/amazon_glove1600.txt'
+VECTORFILES[('Amazon', 'GloVe', 300)] = '/glove.840B.300d.txt'
 
 
 def BonC(n, min_count=1):
@@ -51,7 +51,7 @@ def circular_conv(cooc, w2v):
   return np.real(ifft(output))
 
 
-def DisC(n, composition, scaling=True, vectorfile=None, corpus='Amazon', objective='GloVe', dimension=1600):
+def DisC(n, composition, scaling=True, vectorfile=None, corpus='CC', objective='GloVe', dimension=300):
   prepare = lambda documents: (vocab2vecs({word for doc in documents for word in split_on_punctuation(doc.lower())}, vectorfile=vectorfile, corpus=corpus, objective=objective, dimension=dimension), np.zeros(dimension))
   compose = {'mult': pointwise_mult, 'conv': circular_conv}[composition]
   def represent(documents, w2v, z):
