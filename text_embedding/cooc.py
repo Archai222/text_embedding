@@ -52,15 +52,16 @@ def circular_conv(cooc, w2v):
 
 
 def DisC(n, composition='mult', scaling=True, vectorfile=None, corpus='CC', objective='GloVe', dimension=300):
-  prepare = lambda documents: (vocab2vecs({word for doc in documents for word in split_on_punctuation(doc.lower())}, vectorfile=vectorfile, corpus=corpus, objective=objective, dimension=dimension), np.zeros(dimension))
-  compose = {'mult': pointwise_mult, 'conv': circular_conv}[composition]
 
-  def represent(documents, w2v, z):
-    docs = tokenize(doc.lower() for doc in documents)
-    if scaling:
-      return np.hstack(np.vstack(sum((compose(gram, w2v) for gram in nltk.ngrams(doc, k)), z) for doc in docs)/k for k in range(1, n+1))
-    return np.hstack(np.vstack(sum((compose(gram, w2v) for gram in nltk.ngrams(doc, k)), z) for doc in docs) for k in range(1, n+1))
-  return represent, prepare, True
+    prepare = lambda documents: (vocab2vecs({word for doc in documents for word in split_on_punctuation(doc.lower())}, vectorfile=vectorfile, corpus=corpus, objective=objective, dimension=dimension), np.zeros(dimension))
+    compose = {'mult': pointwise_mult, 'conv': circular_conv}[composition]
+
+    def represent(documents, w2v, z):
+        docs = tokenize(doc.lower() for doc in documents)
+        if scaling:
+            return np.hstack(np.vstack(sum((compose(gram, w2v) for gram in nltk.ngrams(doc, k)), z) for doc in docs)/k for k in range(1, n+1))
+        return np.hstack(np.vstack(sum((compose(gram, w2v) for gram in nltk.ngrams(doc, k)), z) for doc in docs) for k in range(1, n+1))
+    return represent, prepare, True
 
 
 if __name__ == '__main__':
